@@ -43,7 +43,7 @@ crud.createDoc('authors', author).then(async authorRef => {
       publishDate: false,
       rating: faker.random.number({ min: 0, max: 5, precision: 1 }),
       status: faker.random.arrayElement(bookConfig.status),
-      title: faker.lorem.sentence()
+      title: faker.commerce.productName()
     };
 
     /* This is just for sample, after the functions part of lesson this should happen automatiacally */
