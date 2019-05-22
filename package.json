@@ -1,0 +1,27 @@
+{
+  "name": "ajonp-ajsbooks-db-example",
+  "version": "0.0.1",
+  "description": "Sample Data for loading firebase firestore",
+  "main": "config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AJONPLLC/ajonp-ajsbooks-db-example.git"
+  },
+  "keywords": [
+    "firebase",
+    "firestore"
+  ],
+  "author": "Alex Patterson <developer@ajonp.com> (https://ajonp.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AJONPLLC/ajonp-ajsbooks-db-example/issues"
+  },
+  "homepage": "https://github.com/AJONPLLC/ajonp-ajsbooks-db-example#readme",
+  "dependencies": {
+    "faker": "^4.1.0",
+    "firebase-admin": "^7.4.0"
+  }
+}
