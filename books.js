@@ -32,7 +32,7 @@ crud.createDoc('authors', author).then(async authorRef => {
       authorDisplayName: author.displayName,
       authorId: authorRef.id,
       description: faker.lorem.paragraph(),
-      cover: faker.image.cats(),
+      cover: faker.image.image(),
       fiction: fic,
       genre: fic
         ? faker.random.arrayElement(bookConfig.fiction)
