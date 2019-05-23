@@ -1,3 +1,5 @@
+const admin = require('firebase-admin');
+
 const crud = require('./crud');
 const bookConfig = require('./data/bookConfig');
 const faker = require('faker');
@@ -7,6 +9,7 @@ const faker = require('faker');
 /* Create new Author */
 
 const author = {
+  createdAt: admin.firestore.Timestamp.fromDate(new Date()),
   displayName: faker.internet.userName(),
   email: faker.internet.email(),
   name: faker.name.findName(),
@@ -31,6 +34,7 @@ crud.createDoc('authors', author).then(async authorRef => {
       ageCategory: faker.random.objectElement(bookConfig.ageCategory),
       authorDisplayName: author.displayName,
       authorId: authorRef.id,
+      createdAt: admin.firestore.Timestamp.fromDate(new Date()),
       description: faker.lorem.paragraph(),
       cover: faker.image.image(),
       fiction: fic,
@@ -63,7 +67,8 @@ crud.createDoc('authors', author).then(async authorRef => {
 
     crud.updateDoc('authors', authorRef.id, {
       books: authorBooks,
-      id: authorRef.id
+      id: authorRef.id,
+      updatedAt: admin.firestore.Timestamp.fromDate(new Date())
     });
   }
 });
