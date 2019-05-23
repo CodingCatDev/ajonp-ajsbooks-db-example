@@ -30,6 +30,7 @@ crud.createDoc('authors', author).then(async authorRef => {
 
   for (let i = 0; i < 5; i++) {
     const fic = faker.random.boolean(); //Decide whether this is a fiction book
+    const title = faker.commerce.productName();
     const book = {
       ageCategory: faker.random.objectElement(bookConfig.ageCategory),
       authorDisplayName: author.displayName,
@@ -46,8 +47,9 @@ crud.createDoc('authors', author).then(async authorRef => {
       hasVideos: faker.random.boolean(),
       publishDate: false,
       rating: faker.random.number({ min: 0, max: 5, precision: 1 }),
+      slug: faker.helpers.slugify(title),
       status: faker.random.arrayElement(bookConfig.status),
-      title: faker.commerce.productName()
+      title: title
     };
 
     /* This is just for sample, after the functions part of lesson this should happen automatiacally */
