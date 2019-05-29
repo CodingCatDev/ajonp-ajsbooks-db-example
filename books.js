@@ -4,6 +4,10 @@ const crud = require('./crud');
 const bookConfig = require('./data/bookConfig');
 const faker = require('faker');
 
+const BOOKS = 5;
+const CHAPTERSPERBOOK = 5;
+const PAGESPERCHAPTER = 25;
+
 /* Because in our system a book cannot exist without an Author, we must first create an author */
 
 /* Create new Author */
@@ -28,7 +32,7 @@ const author = {
 crud.createDoc('authors', author).then(async authorRef => {
   /* Create x number of books for each Author */
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 1; i <= BOOKS; i++) {
     const fic = faker.random.boolean(); //Decide whether this is a fiction book
     const title = faker.commerce.productName();
     const book = {
@@ -52,9 +56,9 @@ crud.createDoc('authors', author).then(async authorRef => {
       title: title
     };
 
-    /* This is just for sample, after the functions part of lesson this should happen automatiacally */
     const bookRef = await crud.createDoc('books', book);
 
+    /* This is just for sample, after the functions part of lesson this should happen automatiacally */
     //Update this book with its own id
     crud.updateDoc('books', bookRef.id, { id: bookRef.id });
 
@@ -71,6 +75,67 @@ crud.createDoc('authors', author).then(async authorRef => {
       books: authorBooks,
       id: authorRef.id,
       updatedAt: admin.firestore.Timestamp.fromDate(new Date())
+    });
+
+    const chapters = [];
+    let totalPages = 0;
+
+    /* Add Chapters per Book*/
+    for (
+      let chapterIndex = 1;
+      chapterIndex <= CHAPTERSPERBOOK;
+      chapterIndex++
+    ) {
+      const chapter = {
+        number: chapterIndex,
+        createdAt: admin.firestore.Timestamp.fromDate(new Date()),
+        photo: faker.image.image(),
+        title: faker.commerce.productName()
+      };
+      const chapterRef = await crud.createDoc(
+        `books/${bookRef.id}/chapters`,
+        chapter
+      );
+
+      // Add chapter to books array
+      chapters.push({
+        id: chapterRef.id,
+        number: chapter.number,
+        photo: chapter.photo,
+        title: chapter.title
+      });
+
+      let pages = [];
+
+      /* Add Pages per Chapter */
+      for (let pageIndex = 1; pageIndex <= PAGESPERCHAPTER; pageIndex++) {
+        totalPages++;
+
+        const page = {
+          number: totalPages,
+          text: faker.lorem.paragraphs()
+        };
+
+        const pageRef = await crud.createDoc(
+          `books/${bookRef.id}/chapters/${chapterRef.id}/pages`,
+          page
+        );
+
+        pages.push({
+          id: pageRef.id,
+          number: totalPages
+        });
+      }
+
+      /* Update chapter with pages array */
+      crud.updateDoc(`books/${bookRef.id}/chapters/`, chapterRef.id, {
+        pages: pages
+      });
+    }
+    /* Update book with chapters array */
+    crud.updateDoc('books', bookRef.id, {
+      chapters: chapters,
+      totalPages: totalPages
     });
   }
 });
