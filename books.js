@@ -125,11 +125,19 @@ crud.createDoc('authors', author).then(async authorRef => {
           id: pageRef.id,
           number: totalPages
         });
+        crud.updateDoc(
+          `books/${bookRef.id}/chapters/${chapterRef.id}/pages`,
+          pageRef.id,
+          {
+            id: pageRef.id
+          }
+        );
       }
 
       /* Update chapter with pages array */
       crud.updateDoc(`books/${bookRef.id}/chapters/`, chapterRef.id, {
-        pages: pages
+        pages: pages,
+        id: chapterRef.id
       });
     }
     /* Update book with chapters array */
