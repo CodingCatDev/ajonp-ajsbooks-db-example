@@ -8,6 +8,18 @@ const BOOKS = 5;
 const CHAPTERSPERBOOK = 5;
 const PAGESPERCHAPTER = 25;
 
+const booksPics = [
+  'https://res.cloudinary.com/ajonp/image/upload/w_500,h_500,q_auto/ajonp-ajonp-com/20-lesson-nextjs/5-Firebase/krists-luhaers-BdOj5h38TSQ-unsplash.jpg',
+  'https://res.cloudinary.com/ajonp/image/upload/w_500,h_500,q_auto/ajonp-ajonp-com/20-lesson-nextjs/5-Firebase/sharon-mccutcheon-eMP4sYPJ9x0-unsplash.jpg',
+  'https://res.cloudinary.com/ajonp/image/upload/w_500,h_500,q_auto/ajonp-ajonp-com/20-lesson-nextjs/5-Firebase/francesca-tirico-_ea1a8mZTcE-unsplash.jpg',
+  'https://res.cloudinary.com/ajonp/image/upload/w_500,h_500,q_auto/ajonp-ajonp-com/20-lesson-nextjs/5-Firebase/thought-catalog-V5BGaJ0VaLU-unsplash.jpg',
+  'https://res.cloudinary.com/ajonp/image/upload/w_500,h_500,q_auto/ajonp-ajonp-com/20-lesson-nextjs/5-Firebase/annelies-geneyn-bhBONc07WsI-unsplash.jpg',
+  'https://res.cloudinary.com/ajonp/image/upload/w_500,h_500,q_auto/ajonp-ajonp-com/20-lesson-nextjs/5-Firebase/hope-house-press-leather-diary-studio-IOzk8YKDhYg-unsplash.jpg',
+  'https://res.cloudinary.com/ajonp/image/upload/w_500,h_500,q_auto/ajonp-ajonp-com/20-lesson-nextjs/5-Firebase/aaron-burden-9zsHNt5OpqE-unsplash.jpg',
+  'https://res.cloudinary.com/ajonp/image/upload/w_500,h_500,q_auto/ajonp-ajonp-com/20-lesson-nextjs/5-Firebase/patrick-tomasso-Oaqk7qqNh_c-unsplash.jpg',
+  'https://res.cloudinary.com/ajonp/image/upload/w_500,h_500,q_auto/ajonp-ajonp-com/20-lesson-nextjs/5-Firebase/thought-catalog-o0Qqw21-0NI-unsplash.jpg'
+];
+
 /* Because in our system a book cannot exist without an Author, we must first create an author */
 
 /* Create new Author */
@@ -41,7 +53,7 @@ crud.createDoc('authors', author).then(async authorRef => {
       authorId: authorRef.id,
       createdAt: admin.firestore.Timestamp.fromDate(new Date()),
       description: faker.lorem.paragraph(),
-      cover: faker.image.image(),
+      cover: faker.random.arrayElement(booksPics),
       fiction: fic,
       genre: fic
         ? faker.random.arrayElement(bookConfig.fiction)
