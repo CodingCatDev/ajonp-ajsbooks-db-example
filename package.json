@@ -4,7 +4,8 @@
   "description": "Sample Data for loading firebase firestore",
   "main": "config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node books.js",
+    "config": "node config.js"
   },
   "repository": {
     "type": "git",
