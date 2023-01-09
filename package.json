@@ -23,6 +23,6 @@
   "homepage": "https://github.com/AJONPLLC/ajonp-ajsbooks-db-example#readme",
   "dependencies": {
     "faker": "^4.1.0",
-    "firebase-admin": "^7.4.0"
+    "firebase-admin": "^11.4.1"
   }
 }
